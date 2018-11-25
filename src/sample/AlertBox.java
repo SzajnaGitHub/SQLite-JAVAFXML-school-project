@@ -25,6 +25,11 @@ import javafx.stage.Stage;
         int x;
 
 
+        int y;
+
+
+
+
 
         Label label = new Label();
         label.setText(message);
