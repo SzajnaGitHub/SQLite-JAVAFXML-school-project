@@ -22,6 +22,8 @@ import javafx.stage.Stage;
         windows.initModality(Modality.APPLICATION_MODAL);
         windows.setResizable(false);
         windows.setTitle(title);
+        int x;
+
 
 
         Label label = new Label();
