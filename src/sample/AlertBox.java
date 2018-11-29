@@ -63,14 +63,15 @@ import javafx.stage.Stage;
         TextField textField2 = new TextField();
 
 
-
-
         //DATABASE COMMAND
         //db.InsertProduct(textField1.getText(),999,Double.parseDouble(textField2.getText()));
         //
         Addbutton.setOnAction(e->{
-            if (ValidationClass.isInt(textField2,textField2.getText(),label3.getText())==false && ValidationClass.isString(textField1,textField1.getText(),label2.getText()) == true){
+            System.out.println(ValidationClass.isInt(textField2,textField2.getText(),label3.getText()));
+            System.out.println(ValidationClass.isString(textField1,textField1.getText(),label2.getText()));
 
+            if (ValidationClass.isInt(textField2,textField2.getText(),label3.getText())==true && ValidationClass.isString(textField1,textField1.getText(),label2.getText()) == true){
+                System.out.println("it works beaches!");
             } else {
                 windows.close();
             }

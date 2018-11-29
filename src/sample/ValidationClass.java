@@ -20,13 +20,14 @@ public class ValidationClass {
     static boolean isString(TextField txt,String message,String lbl){
 
         message = message.trim();
-        if(message.matches("^[a-zA-Z]+$") && !message.equals("")){
+        if(message.matches("^[a-zA-Z]+$")){
             return true;
         }
-        if(message == null){
-            AlertBox.alertBox("Error","Wartość w polu '" +lbl+"' nie może być liczbą");
+        if(message == null || message.equals("")){
+            AlertBox.alertBox("Error","Pole '" +lbl+"' jest puste");
             return false;
         }
+
         AlertBox.alertBox("Error","Wartość w polu '" +lbl+"' nie może być liczbą");
         return false;
     }
