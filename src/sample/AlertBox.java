@@ -23,7 +23,6 @@ import javafx.stage.Stage;
         windows.setResizable(false);
         windows.setTitle(title);
 
-
         Label label = new Label();
         label.setText(message);
         Button closeButton = new Button();
@@ -63,9 +62,22 @@ import javafx.stage.Stage;
         TextField textField1 = new TextField();
         TextField textField2 = new TextField();
 
-        //Addbutton.setOnAction(e-> windows.close());
-        Addbutton.setOnAction(e->{db.InsertProduct(textField1.getText(),999,Double.parseDouble(textField2.getText()));
-        windows.close();});
+
+
+
+        //DATABASE COMMAND
+        //db.InsertProduct(textField1.getText(),999,Double.parseDouble(textField2.getText()));
+        //
+        Addbutton.setOnAction(e->{
+            if (ValidationClass.isInt(textField2,textField2.getText(),label3.getText())==false && ValidationClass.isString(textField1,textField1.getText(),label2.getText()) == true){
+
+            } else {
+                windows.close();
+            }
+        });
+
+
+
         Addbutton.setText(buttonName);
 
             VBox siatkapoziomaVBox1 = new VBox(5);
@@ -102,9 +114,18 @@ import javafx.stage.Stage;
         tfVBox.setPadding(new Insets(0,100,0,100));
         tfVBox.getChildren().add(textField);
 
+        //DATA BASE COMMAND
+        //db.Delete(Integer.parseInt(textField.getText()));
+        //
+
         Button DelButton = new Button();
-        DelButton.setOnAction(e-> {db.Delete(Integer.parseInt(textField.getText()));
-        windows.close();});
+        DelButton.setOnAction(e-> {
+            if(ValidationClass.isInt(textField,textField.getText(),label.getText())==false){
+            }
+            else{
+                windows.close();
+            }
+        });
         DelButton.setText("Delete");
 
         VBox layout = new VBox(10);
@@ -139,7 +160,13 @@ import javafx.stage.Stage;
          EditButton.setLayoutX(160);
          EditButton.setLayoutY(10);
          EditButton.setOnAction(e->{
-             popupAdd("Edycja","Nowa nazwa","Ilość","Edit");
+
+             if(ValidationClass.isInt(textField,textField.getText(),label.getText())==false){
+             }
+             else {
+                 popupAdd("Edycja","Nowa nazwa","Ilość","Edit");
+             }
+
          });
 
         Button exitButton = new Button();

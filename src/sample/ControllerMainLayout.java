@@ -60,7 +60,9 @@ public class ControllerMainLayout implements Initializable{
     }
     public void hangleAddButton(){
         MainLabel.setText("Dodawanie elementów");
+
         AlertBox.popupAdd("Dodawanie","Nazwa", "Ilość","Add");
+
     }
     public void hangleDeleteButton(){
         MainLabel.setText("Usuwanie elementów");
