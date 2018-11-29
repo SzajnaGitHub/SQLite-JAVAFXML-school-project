@@ -19,11 +19,12 @@ public class ControllerMainLayout implements Initializable{
    @FXML private Label IdTime;
    @FXML private Label MainLabel;
    @FXML private Button showDB2Button;
-
+   @FXML private Button grahpDrawingButton;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        grahpDrawingButton.setVisible(false);
         setLogedAsMethod();
         setIdTime();
         setIdDate();
@@ -54,27 +55,37 @@ public class ControllerMainLayout implements Initializable{
         IdDate.setText(dateString);
     }
     public void hanglewarehouseButton(){
+
+        grahpDrawingButton.setVisible(true);
         CDatabaseComm db = new CDatabaseComm("test.db");
         MainLabel.setText("Stan Magazynu");
         db.ViewDB("warehouses");
     }
     public void hangleAddButton(){
         MainLabel.setText("Dodawanie elementów");
+        grahpDrawingButton.setVisible(false);
 
         AlertBox.popupAdd("Dodawanie","Nazwa", "Ilość","Add");
 
     }
     public void hangleDeleteButton(){
+        grahpDrawingButton.setVisible(false);
         MainLabel.setText("Usuwanie elementów");
         AlertBox.popupDel();
     }
     public void hangleEditButton(){
+        grahpDrawingButton.setVisible(false);
         MainLabel.setText("Edycja elementów");
         AlertBox.popupEdit();
     }
     public void hangleShowDB2Button(){
+        grahpDrawingButton.setVisible(true);
         MainLabel.setText("Finanse");
     }
+    public void DrawGraph(){
+        //funckja do rysowania grafu, specjalnie dla Ciebie
+    }
+
 
 }
 
