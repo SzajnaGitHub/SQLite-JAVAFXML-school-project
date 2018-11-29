@@ -10,6 +10,8 @@ import java.time.LocalTime;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import static sample.CDatabaseComm.ViewDB;
+
 
 public class ControllerMainLayout implements Initializable{
 
@@ -57,9 +59,8 @@ public class ControllerMainLayout implements Initializable{
     public void hanglewarehouseButton(){
 
         grahpDrawingButton.setVisible(true);
-        CDatabaseComm db = new CDatabaseComm("test.db");
         MainLabel.setText("Stan Magazynu");
-        db.ViewDB("warehouses");
+        ViewDB("warehouses");
     }
     public void hangleAddButton(){
         MainLabel.setText("Dodawanie elementów");
@@ -79,8 +80,10 @@ public class ControllerMainLayout implements Initializable{
         AlertBox.popupEdit();
     }
     public void hangleShowDB2Button(){
+        CDatabaseComm db = new CDatabaseComm("test.db");
         grahpDrawingButton.setVisible(true);
         MainLabel.setText("Finanse");
+        ViewDB("balance");
     }
     public void DrawGraph(){
         //funckja do rysowania grafu, specjalnie dla Ciebie

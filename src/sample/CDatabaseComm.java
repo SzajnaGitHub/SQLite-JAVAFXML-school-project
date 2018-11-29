@@ -1,20 +1,21 @@
 package sample;
 
+import java.io.File;
 import java.sql.*;
 
 
 public class CDatabaseComm {
-    private static String Name;
-
+    private static String dbpath;
+    String file = new File("").getAbsolutePath();
     public CDatabaseComm(String Name){
-        this.Name = Name;
+        dbpath = "jdbc:sqlite:" + file + "\\" + Name;
+        //Connection conn = Connect();
         CreateNewDB();
         CreateNewTable();
     }
 
     private static void CreateNewDB(){
-        String path = "jdbc:sqlite:C:/sqlite/db/" + Name;
-        try(Connection conn = DriverManager.getConnection(path)){
+        try(Connection conn = DriverManager.getConnection(dbpath)){
             if(conn != null){
                 System.out.print("DB created successfully" +"\n");
             }
@@ -24,11 +25,10 @@ public class CDatabaseComm {
         }
     }
 
-    private Connection Connect(){
+    private static Connection Connect(){
         Connection conn = null;
-        String path = "jdbc:sqlite:C:/sqlite/db/" + Name;
         try{
-            conn = DriverManager.getConnection(path);}
+            conn = DriverManager.getConnection(dbpath);}
         catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -36,7 +36,6 @@ public class CDatabaseComm {
     }
 
     private static void CreateNewTable(){
-        String path = "jdbc:sqlite:C:/sqlite/db/" + Name;
         String sql1 = "CREATE TABLE IF NOT EXISTS warehouses (\n"
                 + "	id integer PRIMARY KEY,\n"
                 + "	name text NOT NULL,\n"
@@ -48,7 +47,7 @@ public class CDatabaseComm {
                 + "	name text NOT NULL,\n"
                 + "	income real\n"
                 + ");";
-        try(Connection conn = DriverManager.getConnection(path);
+        try(Connection conn = DriverManager.getConnection(dbpath);
             Statement stmt = conn.createStatement()){
             stmt.execute(sql1);
             stmt.execute(sql2);
@@ -57,10 +56,10 @@ public class CDatabaseComm {
             System.out.println(e.getMessage());
         }
     }
-    public void InsertProduct(String Name,double price, double capacity){
+    public static void InsertProduct(String Name,double price, double capacity){
         String sql = "INSERT INTO warehouses(name,price,capacity) VALUES(?,?,?)";
 
-        try(Connection conn = this.Connect();
+        try(Connection conn = Connect();
         PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setString(1,Name);
             pstmt.setDouble(2,price);
@@ -70,10 +69,10 @@ public class CDatabaseComm {
             System.out.println(e.getMessage());
         }
     }
-    public void InsertIncome(String Name, double income){
+    public static void InsertIncome(String Name, double income){
         String sql = "INSERT INTO balance(name,income) VALUES(?,?)";
 
-        try(Connection conn = this.Connect();
+        try(Connection conn = Connect();
         PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setString(1,Name);
             pstmt.setDouble(2,income);
@@ -82,10 +81,10 @@ public class CDatabaseComm {
             System.out.println(e.getMessage());
         }
     }
-    public void ViewDB(String tabname){
+    public static void ViewDB(String tabname){
         String sql = "SElECT * FROM " + tabname;
 
-        try(Connection conn = this.Connect();
+        try(Connection conn = Connect();
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(sql)){
             if(tabname == "warehouses")
@@ -105,12 +104,12 @@ public class CDatabaseComm {
             System.out.println(e.getMessage());
         }
     }
-    public void UpdateDB(String tabname,int id, String name, double income){
+    public static void UpdateDB(String tabname,int id, String name, double income){
         String sql = "UPDATE " + tabname + " SET name =? ,"
                 + "income = ?"
                 + "WHERE id = ?";
 
-        try(Connection conn = this.Connect();
+        try(Connection conn = Connect();
         PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setString(1,name);
             pstmt.setDouble(2,income);
@@ -120,9 +119,9 @@ public class CDatabaseComm {
             System.out.print(e.getMessage());
         }
     }
-    public void Delete(int id){
+    public static void Delete(int id){
         String sql = "DELETE FROM warehouses WHERE id =?";
-        try(Connection conn = this.Connect();
+        try(Connection conn = Connect();
             PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setInt(1,id);
             pstmt.executeUpdate();
@@ -130,12 +129,12 @@ public class CDatabaseComm {
             System.out.println(e.getMessage());
         }
     }
-    public void Update(int id, String name,Double price, Double capacity){
+    public static void Update(int id, String name,double price, double capacity){
         String sql = "update warehouses set name =?,"
                 + "price = ?,"
                 + "capacity = ?"
                 + "where id =?";
-        try(Connection conn = this.Connect();
+        try(Connection conn = Connect();
         PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setString(1,name);
             pstmt.setDouble(2,price);

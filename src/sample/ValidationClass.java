@@ -28,6 +28,7 @@ public class ValidationClass {
             return false;
         }
 
+
         AlertBox.alertBox("Error","Wartość w polu '" +lbl+"' nie może być liczbą");
         return false;
     }
