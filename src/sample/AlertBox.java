@@ -12,8 +12,10 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import static sample.CDatabaseComm.*;
 
-    public class AlertBox{
+
+public class AlertBox{
 
     static void alertBox(String title, String message){
         Stage windows = new Stage();
@@ -40,7 +42,6 @@ import javafx.stage.Stage;
 
     static void popupAdd(String title,String labelname1,String labelname2,String buttonName){
         Stage windows = new Stage();
-        CDatabaseComm db = new CDatabaseComm("test.db");
 
         //Blocking interactions with other event
         windows.initModality(Modality.APPLICATION_MODAL);
@@ -64,14 +65,15 @@ import javafx.stage.Stage;
 
 
         //DATABASE COMMAND
-        //db.InsertProduct(textField1.getText(),999,Double.parseDouble(textField2.getText()));
         //
         Addbutton.setOnAction(e->{
             System.out.println(ValidationClass.isInt(textField2,textField2.getText(),label3.getText()));
             System.out.println(ValidationClass.isString(textField1,textField1.getText(),label2.getText()));
 
-            if (ValidationClass.isInt(textField2,textField2.getText(),label3.getText())==true && ValidationClass.isString(textField1,textField1.getText(),label2.getText()) == true){
-                System.out.println("it works beaches!");
+            if (ValidationClass.isInt(textField2,textField2.getText(),label3.getText())==true &&
+                    ValidationClass.isString(textField1,textField1.getText(),label2.getText()) == true){
+                //System.out.println("it works beaches!");
+                InsertProduct(textField1.getText(),999,Double.parseDouble(textField2.getText()));
             } else {
                 windows.close();
             }
@@ -100,7 +102,6 @@ import javafx.stage.Stage;
 
     static void popupDel(){
         Stage windows = new Stage();
-        CDatabaseComm db = new CDatabaseComm("test.db");
         //Blocking interactions with other event
         windows.initModality(Modality.APPLICATION_MODAL);
         windows.setResizable(false);
@@ -115,13 +116,12 @@ import javafx.stage.Stage;
         tfVBox.setPadding(new Insets(0,100,0,100));
         tfVBox.getChildren().add(textField);
 
-        //DATA BASE COMMAND
-        //db.Delete(Integer.parseInt(textField.getText()));
-        //
+
 
         Button DelButton = new Button();
         DelButton.setOnAction(e-> {
             if(ValidationClass.isInt(textField,textField.getText(),label.getText())==false){
+                Delete(Integer.parseInt(textField.getText()));
             }
             else{
                 windows.close();
@@ -139,7 +139,6 @@ import javafx.stage.Stage;
     }
 
      static void popupEdit(){
-        CDatabaseComm db = new CDatabaseComm("test.db");
          Stage windows = new Stage();
 
          //Blocking interactions with other event
@@ -163,6 +162,7 @@ import javafx.stage.Stage;
          EditButton.setOnAction(e->{
 
              if(ValidationClass.isInt(textField,textField.getText(),label.getText())==false){
+                 //db.Update();
              }
              else {
                  popupAdd("Edycja","Nowa nazwa","Ilość","Edit");
