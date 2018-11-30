@@ -14,6 +14,7 @@ public class Main extends Application {
         primaryStage.setTitle("Shansky.app");
         primaryStage.setScene(new Scene(root, 400, 250));
         primaryStage.show();
+        primaryStage.setResizable(false);
 
     }
 

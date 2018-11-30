@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -24,6 +25,7 @@ public class ControllerMainLayout implements Initializable{
    @FXML private Button grahpDrawingButton;
 
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         grahpDrawingButton.setVisible(false);
@@ -40,18 +42,35 @@ public class ControllerMainLayout implements Initializable{
     private void setLogedAsMethod(){
             logedAs.setText(Session.getCurrentSession().get("userType"));
     }
-    private void setIdTime(){
+    private void setIdTime() {
+        // ClockThread ct = new ClockThread();
         LocalTime today = LocalTime.now();
-            if(today.getHour()<=9) {
-                IdTime.setText("0"+today.getHour() + ":"+ today.getMinute());
-            }
-            if(today.getMinute()<=9){
-                IdTime.setText(today.getHour() + ":0"+ today.getMinute());
-            }
-            else{
-                IdTime.setText(today.getHour() + ":" + today.getMinute());
 
+        Thread t1 = new Thread() {
+
+            public void run() {
+
+                for (int i = 12; i > 10; i++) {
+                    LocalTime today = LocalTime.now();
+                    System.out.println("lol" + i);
+                    if (today.getHour() <= 9) {
+                        IdTime.setText("0" + today.getHour() + ":" + today.getMinute());
+                    }
+                    if (today.getMinute() <= 9) {
+                        IdTime.setText(today.getHour() + ":0" + today.getMinute());
+                    } else {
+                        IdTime.setText(today.getHour() + ":" + today.getMinute());
+                    }
+                    try {
+                        sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
             }
+        };
+        t1.start();
     }
     private void setIdDate(){
         Date currentDate = new Date();

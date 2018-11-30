@@ -1,16 +1,17 @@
 package sample;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.ProgressBar;
-import java.io.IOException;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 
 public class Controller {
@@ -51,6 +52,7 @@ public class Controller {
 
         //This line gets the Stage information
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setResizable(false);
 
         window.setScene(MainLayoutScene);
         window.show();
