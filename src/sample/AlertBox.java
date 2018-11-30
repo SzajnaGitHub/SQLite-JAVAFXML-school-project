@@ -74,6 +74,8 @@ public class AlertBox{
                     ValidationClass.isString(textField1,textField1.getText(),label2.getText()) == true){
                 //System.out.println("it works beaches!");
                 InsertProduct(textField1.getText(),999,Double.parseDouble(textField2.getText()));
+                textField1.setText("");
+                textField2.setText("");
             } else {
                 windows.close();
             }

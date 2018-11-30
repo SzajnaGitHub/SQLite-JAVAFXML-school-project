@@ -43,10 +43,13 @@ public class ControllerMainLayout implements Initializable{
     private void setIdTime(){
         LocalTime today = LocalTime.now();
             if(today.getHour()<=9) {
-                IdTime.setText("0"+today.getHour() + ":" + today.getMinute() + ":" + today.getSecond());
+                IdTime.setText("0"+today.getHour() + ":"+ today.getMinute());
+            }
+            if(today.getMinute()<=9){
+                IdTime.setText(today.getHour() + ":0"+ today.getMinute());
             }
             else{
-                IdTime.setText(today.getHour() + ":" + today.getMinute() + ":" + today.getSecond());
+                IdTime.setText(today.getHour() + ":" + today.getMinute());
 
             }
     }
@@ -65,7 +68,6 @@ public class ControllerMainLayout implements Initializable{
     public void hangleAddButton(){
         MainLabel.setText("Dodawanie elementów");
         grahpDrawingButton.setVisible(false);
-
         AlertBox.popupAdd("Dodawanie","Nazwa", "Ilość","Add");
 
     }
