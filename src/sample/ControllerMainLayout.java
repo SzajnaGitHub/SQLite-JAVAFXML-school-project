@@ -49,9 +49,6 @@ public class ControllerMainLayout implements Initializable{
                 for (int i = 1; i >0; i++) {
                     try {
                         LocalTime today = LocalTime.now();
-                        final int tgh = today.getHour();
-                        final int tgm = today.getMinute();
-                        System.out.println(i);
 
                         Platform.runLater(new Runnable() {
                             @Override public void run() {

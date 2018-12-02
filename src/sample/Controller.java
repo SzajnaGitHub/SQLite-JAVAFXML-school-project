@@ -23,16 +23,16 @@ public class Controller {
     Session session = Session.getCurrentSession();
 
 
-    public void handleLoginButton(ActionEvent event) throws IOException {
+    public void handleLoginButton(ActionEvent event) throws IOException, InterruptedException {
         if (passwordField.getText().equals("admin")) {
             session.add("userType", "Admin");
-            runProgressBar();
-            sceneChange(event);
+            runProgressBar(event);
+
 
         } else if (passwordField.getText().equals("user")) {
             session.add("userType", "User");
-            runProgressBar();
-            sceneChange(event);
+            runProgressBar(event);
+
         } else {
             AlertBox.alertBox("Error", "Insert correct password");
         }
@@ -53,41 +53,47 @@ public class Controller {
         window.show();
     }
 
-    private void runProgressBar() {
+    private void runProgressBar(ActionEvent event) throws InterruptedException{
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 for (int i = 1; i <= 100; i++) {
-
                     try {
                         final int a = i;
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                if(a==50){
+                                if( a==50){
                                     try {
-
                                         Thread.sleep(1000);
                                         progressBar.setProgress(1/2);
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     }
-
                                 } else{
                                     progressBar.setProgress(a / 100.0);
                                 }
-                            }
-                        });
+                                if(progressBar.getProgress()==1) {
+                                    try {
+                                        sceneChange(event);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }});
                         Thread.sleep(20);
                     } catch (Exception e) {
                         e.printStackTrace();
-                    }
+
+              }
+
 
 
                 }
-            }
-        }).start();
+            }}).start();
+
 
     }
+
 }
