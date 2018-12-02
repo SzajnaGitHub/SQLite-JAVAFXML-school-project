@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,50 +23,71 @@ public class Controller {
     Session session = Session.getCurrentSession();
 
 
-
-
-
-
-
-    public void handleLoginButton(ActionEvent event) throws IOException{
-        if(passwordField.getText().equals("admin")){
-            session.add("userType","Admin");
-            //runProgressBar();
+    public void handleLoginButton(ActionEvent event) throws IOException {
+        if (passwordField.getText().equals("admin")) {
+            session.add("userType", "Admin");
+            runProgressBar();
             sceneChange(event);
 
-        }
-        else if(passwordField.getText().equals("user")){
-            session.add("userType","User");
+        } else if (passwordField.getText().equals("user")) {
+            session.add("userType", "User");
+            runProgressBar();
             sceneChange(event);
-        }
-        else{
-            AlertBox.alertBox("Error","Insert correct password");
+        } else {
+            AlertBox.alertBox("Error", "Insert correct password");
         }
 
 
     }
 
-    private void sceneChange(ActionEvent event) throws IOException{
+    private void sceneChange(ActionEvent event) throws IOException {
 
         Parent MainLayoutParent = FXMLLoader.load(getClass().getResource("MainLayout.fxml"));
         Scene MainLayoutScene = new Scene(MainLayoutParent);
 
         //This line gets the Stage information
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setResizable(false);
 
         window.setScene(MainLayoutScene);
         window.show();
     }
 
-    private void runProgressBar() throws InterruptedException {
+    private void runProgressBar() {
 
-        for (int i = 0; i < 100; i++){
-            progressBar.setProgress(i/100);
-            Thread.sleep(100);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 1; i <= 100; i++) {
 
-        }
+                    try {
+                        final int a = i;
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(a==50){
+                                    try {
+
+                                        Thread.sleep(1000);
+                                        progressBar.setProgress(1/2);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                } else{
+                                    progressBar.setProgress(a / 100.0);
+                                }
+                            }
+                        });
+                        Thread.sleep(20);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            }
+        }).start();
 
     }
-
 }

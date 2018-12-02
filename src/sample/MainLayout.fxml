@@ -76,12 +76,12 @@
                         <Font name="System Italic" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="IdDate" layoutX="74.0" layoutY="28.0" prefHeight="27.0" prefWidth="93.0" text="20.05.2018">
+                  <Label fx:id="IdDate" layoutX="74.0" layoutY="28.0" prefHeight="27.0" prefWidth="93.0">
                      <font>
                         <Font name="System Italic" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="IdTime" layoutX="100.0" layoutY="60.0" text="23:04:00">
+                  <Label fx:id="IdTime" layoutX="100.0" layoutY="60.0">
                      <font>
                         <Font name="System Italic" size="18.0" />
                      </font>

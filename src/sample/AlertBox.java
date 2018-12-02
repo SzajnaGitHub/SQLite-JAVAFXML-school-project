@@ -12,7 +12,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import static sample.CDatabaseComm.*;
+import static sample.CDatabaseComm.Delete;
+import static sample.CDatabaseComm.InsertProduct;
 
 
 public class AlertBox{
@@ -195,6 +196,5 @@ public class AlertBox{
          windows.showAndWait();
 
      }
-
 
 }
