@@ -34,6 +34,7 @@ public class Controller {
             runProgressBar(event);
 
         } else {
+            passwordField.setText("");
             AlertBox.alertBox("Error", "Insert correct password");
         }
 

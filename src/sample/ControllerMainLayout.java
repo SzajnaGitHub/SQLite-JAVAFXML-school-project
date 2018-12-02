@@ -97,7 +97,9 @@ public class ControllerMainLayout implements Initializable{
         grahpDrawingButton.setVisible(false);
         MainLabel.setText("Edycja elementów");
         AlertBox.popupEdit();
+
     }
+
     public void hangleShowDB2Button(){
         CDatabaseComm db = new CDatabaseComm("test.db");
         grahpDrawingButton.setVisible(true);
