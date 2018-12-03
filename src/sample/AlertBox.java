@@ -64,8 +64,6 @@ public class AlertBox{
         TextField textField2 = new TextField();
 
 
-        //DATABASE COMMAND
-        //
         Addbutton.setOnAction(e->{
             System.out.println(ValidationClass.isInt(textField2,textField2.getText(),label3.getText()));
             System.out.println(ValidationClass.isString(textField1,textField1.getText(),label2.getText()));
@@ -74,6 +72,8 @@ public class AlertBox{
                     ValidationClass.isString(textField1,textField1.getText(),label2.getText()) == true){
                 //System.out.println("it works beaches!");
                 InsertProduct(textField1.getText(),999,Double.parseDouble(textField2.getText()));
+                textField1.setText("");
+                textField2.setText("");
             } else {
                 windows.close();
             }
@@ -159,10 +159,15 @@ public class AlertBox{
          EditButton.setText("Edit");
          EditButton.setLayoutX(160);
          EditButton.setLayoutY(10);
+
+
          EditButton.setOnAction(e->{
 
              if(ValidationClass.isInt(textField,textField.getText(),label.getText())==false){
                  //db.Update();
+
+
+
              }
              else {
                  popupAdd("Edycja","Nowa nazwa","Ilość","Edit");

@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -11,6 +12,8 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import static sample.CDatabaseComm.ViewDB;
+import static sample.CBarChart.start;
+import static sample.CLineChart.draw;
 
 
 public class ControllerMainLayout implements Initializable{
@@ -24,11 +27,12 @@ public class ControllerMainLayout implements Initializable{
    @FXML private Button grahpDrawingButton;
 
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         grahpDrawingButton.setVisible(false);
         setLogedAsMethod();
-        setIdTime();
+        //setIdTime();
         setIdDate();
         if(Session.getCurrentSession().get("userType").equals("User")){
             showDB2Button.setDisable(true);//wyłączanie przycisków
@@ -40,16 +44,36 @@ public class ControllerMainLayout implements Initializable{
     private void setLogedAsMethod(){
             logedAs.setText(Session.getCurrentSession().get("userType"));
     }
-    private void setIdTime(){
+    /*private void setIdTime() {
+        // ClockThread ct = new ClockThread();
         LocalTime today = LocalTime.now();
-            if(today.getHour()<=9) {
-                IdTime.setText("0"+today.getHour() + ":" + today.getMinute() + ":" + today.getSecond());
-            }
-            else{
-                IdTime.setText(today.getHour() + ":" + today.getMinute() + ":" + today.getSecond());
 
+        Thread t1 = new Thread() {
+
+            public void run() {
+
+                for (int i = 12; i > 10; i++) {
+                    LocalTime today = LocalTime.now();
+                    System.out.println("lol" + i);
+                    if (today.getHour() <= 9) {
+                        IdTime.setText("0" + today.getHour() + ":" + today.getMinute());
+                    }
+                    if (today.getMinute() <= 9) {
+                        IdTime.setText(today.getHour() + ":0" + today.getMinute());
+                    } else {
+                        IdTime.setText(today.getHour() + ":" + today.getMinute());
+                    }
+                    try {
+                        sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
             }
-    }
+        };
+        t1.start();
+    }*/
     private void setIdDate(){
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd:MM:yyyy");
@@ -65,7 +89,6 @@ public class ControllerMainLayout implements Initializable{
     public void hangleAddButton(){
         MainLabel.setText("Dodawanie elementów");
         grahpDrawingButton.setVisible(false);
-
         AlertBox.popupAdd("Dodawanie","Nazwa", "Ilość","Add");
 
     }
@@ -86,6 +109,11 @@ public class ControllerMainLayout implements Initializable{
         ViewDB("balance");
     }
     public void DrawGraph(){
+        grahpDrawingButton.setVisible(false);
+        //bar chart
+        start();
+        //line chart
+        draw();
         //funckja do rysowania grafu, specjalnie dla Ciebie
     }
 
