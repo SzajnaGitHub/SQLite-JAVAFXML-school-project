@@ -143,7 +143,6 @@ public class AlertBox{
                         ValidationClass.isInt(textField3,textField3.getText(),label4.getText())==true
             ){
 
-                //System.out.println("it works beaches!");
                 InsertProduct(textField1.getText(),999,Double.parseDouble(textField2.getText()));
                 textField1.setText("");
                 textField2.setText("");
@@ -172,7 +171,7 @@ public class AlertBox{
         siatkapionowaVBox.getChildren().addAll(label1,siatkapoziomaVBox1,siatkapoziomaVBox2,siatkapoziomaVBox3,Addbutton);
         siatkapionowaVBox.setAlignment(Pos.CENTER);
 
-        Scene popupScene = new Scene(siatkapionowaVBox,300,220);
+        Scene popupScene = new Scene(siatkapionowaVBox,300,235);
         windows.setScene(popupScene);
         windows.showAndWait();
     }

@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -24,7 +25,7 @@ public class ControllerMainLayout implements Initializable{
    @FXML private Label MainLabel;
    @FXML private Button showDB2Button;
    @FXML private Button grahpDrawingButton;
-
+   @FXML private TableView Table;
 
 
     @Override
@@ -39,12 +40,11 @@ public class ControllerMainLayout implements Initializable{
     }
 
 
-
     private void setLogedAsMethod(){
             logedAs.setText(Session.getCurrentSession().get("userType"));
     }
     private void setIdTime() {
-        new Thread(new Runnable() {
+         new Thread(new Runnable() {
             @Override public void run() {
                 for (int i = 1; i >0; i++) {
                     try {
@@ -65,7 +65,6 @@ public class ControllerMainLayout implements Initializable{
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-
                 }}}
             }).start();
 
@@ -99,7 +98,6 @@ public class ControllerMainLayout implements Initializable{
         AlertBox.popupEdit();
 
     }
-
     public void hangleShowDB2Button(){
         CDatabaseComm db = new CDatabaseComm("test.db");
         grahpDrawingButton.setVisible(true);
@@ -108,6 +106,10 @@ public class ControllerMainLayout implements Initializable{
     }
     public void DrawGraph(){
         //funckja do rysowania grafu, specjalnie dla Ciebie
+    }
+    public void TableViewFillMethod(){
+
+
     }
 
 
