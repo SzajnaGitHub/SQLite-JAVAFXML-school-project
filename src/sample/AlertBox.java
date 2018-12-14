@@ -12,11 +12,80 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import static sample.CDatabaseComm.*;
+import static sample.CDatabaseComm.Delete;
+import static sample.CDatabaseComm.InsertProduct;
+import static sample.CDatabaseComm.Update;
 
 
 public class AlertBox{
 
+     static void editBox(){
+        Stage windows = new Stage();
+
+        //Blocking interactions with other event
+        windows.initModality(Modality.APPLICATION_MODAL);
+        windows.setResizable(false);
+        windows.setTitle("Shansky.app");//setting windows title
+
+        Label label1 = new Label();//Main label message
+        label1.setText("Edycja");
+        label1.setFont(new Font(30));
+        label1.setPadding(new Insets(-5,10,0,10));
+
+        Label label2 = new Label();
+        label2.setText("Nazwa");
+        Label label3 = new Label();
+        label3.setText("Ilość");
+        Label label4 = new Label();
+        label4.setText("Cena");
+
+        Button Addbutton = new Button();//add button
+
+        TextField textField1 = new TextField();
+        TextField textField2 = new TextField();
+        TextField textField3 = new TextField();
+
+
+        Addbutton.setOnAction(e->{
+            System.out.println(ValidationClass.isInt(textField2,textField2.getText(),label3.getText()));
+            System.out.println(ValidationClass.isString(textField1,textField1.getText(),label2.getText()));
+
+            if (ValidationClass.isInt(textField2,textField2.getText(),label3.getText())==true &&
+                    ValidationClass.isString(textField1,textField1.getText(),label2.getText()) == true){
+                //System.out.println("it works beaches!");
+                InsertProduct(textField1.getText(),Double.parseDouble(textField2.getText()),Double.parseDouble(textField3.getText()));
+                textField1.setText("");
+                textField2.setText("");
+            } else {
+                windows.close();
+            }
+        });
+
+
+
+        Addbutton.setText("Edytuj");
+
+        VBox siatkapoziomaVBox1 = new VBox(5);
+        siatkapoziomaVBox1.getChildren().addAll(label2,textField1);
+        siatkapoziomaVBox1.setPadding(new Insets(5,35,5,35));
+
+        VBox siatkapoziomaVBox2 = new VBox(5);
+         siatkapoziomaVBox1.getChildren().addAll(label3,textField2);
+         siatkapoziomaVBox2.setPadding(new Insets(0,35,10,35));
+
+         VBox siatkapoziomaVBox3 = new VBox(5);
+         siatkapoziomaVBox1.getChildren().addAll(label4,textField3);
+         siatkapoziomaVBox2.setPadding(new Insets(0,35,10,35));
+
+        VBox siatkapionowaVBox = new VBox(1);
+        siatkapionowaVBox.getChildren().addAll(label1,siatkapoziomaVBox1,siatkapoziomaVBox2,siatkapoziomaVBox3,Addbutton);
+        siatkapionowaVBox.setAlignment(Pos.CENTER);
+
+        Scene popupScene = new Scene(siatkapionowaVBox,350,270);
+        windows.setScene(popupScene);
+        windows.showAndWait();
+
+    }
     static void alertBox(String title, String message){
         Stage windows = new Stage();
 
@@ -39,7 +108,6 @@ public class AlertBox{
         windows.setScene(alertBoxScene);
         windows.showAndWait();
     }
-
     static void popupAdd(String title,String labelname1,String labelname2,String buttonName){
         Stage windows = new Stage();
 
@@ -57,11 +125,14 @@ public class AlertBox{
         label2.setText(labelname1);
         Label label3 = new Label();
         label3.setText(labelname2);
+        Label label4 = new Label();
+        label4.setText("Cena");
 
         Button Addbutton = new Button();//add button
 
         TextField textField1 = new TextField();
         TextField textField2 = new TextField();
+        TextField textField3 = new TextField();
 
 
         Addbutton.setOnAction(e->{
@@ -69,9 +140,11 @@ public class AlertBox{
             System.out.println(ValidationClass.isString(textField1,textField1.getText(),label2.getText()));
 
             if (ValidationClass.isInt(textField2,textField2.getText(),label3.getText())==true &&
-                    ValidationClass.isString(textField1,textField1.getText(),label2.getText()) == true){
-                //System.out.println("it works beaches!");
-                InsertProduct(textField1.getText(),999,Double.parseDouble(textField2.getText()));
+                    ValidationClass.isString(textField1,textField1.getText(),label2.getText()) == true &&
+                        ValidationClass.isInt(textField3,textField3.getText(),label4.getText())==true
+            ){
+
+                InsertProduct(textField1.getText(),Double.parseDouble(textField2.getText()),Double.parseDouble(textField3.getText()));
                 textField1.setText("");
                 textField2.setText("");
             } else {
@@ -89,13 +162,17 @@ public class AlertBox{
 
             VBox siatkapoziomaVBox2 = new VBox(5);
                 siatkapoziomaVBox1.getChildren().addAll(label3,textField2);
-                 siatkapoziomaVBox2.setPadding(new Insets(0,35,10,35));
+                siatkapoziomaVBox2.setPadding(new Insets(0,35,10,35));
+
+            VBox siatkapoziomaVBox3 = new VBox(5);
+                siatkapoziomaVBox1.getChildren().addAll(label4,textField3);
+                siatkapoziomaVBox2.setPadding(new Insets(0,35,10,35));
 
         VBox siatkapionowaVBox = new VBox(1);
-        siatkapionowaVBox.getChildren().addAll(label1,siatkapoziomaVBox1,siatkapoziomaVBox2,Addbutton);
+        siatkapionowaVBox.getChildren().addAll(label1,siatkapoziomaVBox1,siatkapoziomaVBox2,siatkapoziomaVBox3,Addbutton);
         siatkapionowaVBox.setAlignment(Pos.CENTER);
 
-        Scene popupScene = new Scene(siatkapionowaVBox,300,220);
+        Scene popupScene = new Scene(siatkapionowaVBox,300,235);
         windows.setScene(popupScene);
         windows.showAndWait();
     }
@@ -120,12 +197,12 @@ public class AlertBox{
 
         Button DelButton = new Button();
         DelButton.setOnAction(e-> {
-            if(ValidationClass.isInt(textField,textField.getText(),label.getText())==false){
+            //if(ValidationClass.isInt(textField,textField.getText(),label.getText())==false){
                 Delete(Integer.parseInt(textField.getText()));
-            }
-            else{
+            //}
+            //else{
                 windows.close();
-            }
+            //}
         });
         DelButton.setText("Delete");
 
@@ -164,26 +241,19 @@ public class AlertBox{
          EditButton.setOnAction(e->{
 
              if(ValidationClass.isInt(textField,textField.getText(),label.getText())==false){
-                 //db.Update();
-
-
+                 //Update(textField.getText());
 
              }
              else {
-                 popupAdd("Edycja","Nowa nazwa","Ilość","Edit");
+                 editBox();
              }
 
          });
 
-        Button exitButton = new Button();
-        exitButton.setText("Exit");
-        exitButton.setLayoutX(200);
-        exitButton.setLayoutY(10);
-        exitButton.setOnAction(e-> windows.close());
 
 
             Pane buttonPane = new Pane();
-            buttonPane.getChildren().addAll(EditButton,exitButton);
+            buttonPane.getChildren().addAll(EditButton);
 
 
          VBox layout = new VBox(5);
@@ -195,6 +265,5 @@ public class AlertBox{
          windows.showAndWait();
 
      }
-
 
 }

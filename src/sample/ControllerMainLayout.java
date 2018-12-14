@@ -1,79 +1,86 @@
 package sample;
 
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.util.*;
 import java.util.Date;
-import java.util.ResourceBundle;
 
 import static sample.CDatabaseComm.ViewDB;
-import static sample.CBarChart.start;
-import static sample.CLineChart.draw;
+import static sample.CDatabaseComm.Connect;
+import static sample.CLineChart.DrawLineChart;
 
 
 public class ControllerMainLayout implements Initializable{
 
 
-   @FXML private Label logedAs;
-   @FXML private Label IdDate;
-   @FXML private Label IdTime;
-   @FXML private Label MainLabel;
-   @FXML private Button showDB2Button;
-   @FXML private Button grahpDrawingButton;
-
-
+    public TableColumn<?,?> colID;
+    public TableColumn<?,?> colName;
+    public TableColumn<?,?> colPrice;
+    public TableColumn<?,?> colCapacity;
+    @FXML private Label logedAs;
+    @FXML private Label IdDate;
+    @FXML private Label IdTime;
+    @FXML private Label MainLabel;
+    @FXML private Button showDB2Button;
+    @FXML private Button grahpDrawingButton;
+    @FXML private TableView<CDataClass> Table;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         grahpDrawingButton.setVisible(false);
         setLogedAsMethod();
-        //setIdTime();
+        setIdTime();
         setIdDate();
+        TableViewFillMethod();
         if(Session.getCurrentSession().get("userType").equals("User")){
             showDB2Button.setDisable(true);//wyłączanie przycisków
         }
-    }
 
+    }
 
 
     private void setLogedAsMethod(){
             logedAs.setText(Session.getCurrentSession().get("userType"));
     }
-    /*private void setIdTime() {
-        // ClockThread ct = new ClockThread();
-        LocalTime today = LocalTime.now();
-
-        Thread t1 = new Thread() {
-
-            public void run() {
-
-                for (int i = 12; i > 10; i++) {
-                    LocalTime today = LocalTime.now();
-                    System.out.println("lol" + i);
-                    if (today.getHour() <= 9) {
-                        IdTime.setText("0" + today.getHour() + ":" + today.getMinute());
-                    }
-                    if (today.getMinute() <= 9) {
-                        IdTime.setText(today.getHour() + ":0" + today.getMinute());
-                    } else {
-                        IdTime.setText(today.getHour() + ":" + today.getMinute());
-                    }
+    private void setIdTime() {
+         new Thread(new Runnable() {
+            @Override public void run() {
+                for (int i = 1; i >0; i++) {
                     try {
-                        sleep(1000);
+                        LocalTime today = LocalTime.now();
+
+                        Platform.runLater(new Runnable() {
+                            @Override public void run() {
+                                if (today.getHour() <= 9) {
+                                    IdTime.setText("0" + today.getHour() + ":" + today.getMinute());
+                                }
+                                if (today.getMinute() <= 9) {
+                                    IdTime.setText(today.getHour() + ":0" + today.getMinute());
+                                } else {
+                                    IdTime.setText(today.getHour() + ":" + today.getMinute());
+                                }
+                            }
+                        });
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                    }
+                }}}
+            }).start();
 
-                }
-            }
-        };
-        t1.start();
-    }*/
+    }
     private void setIdDate(){
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd:MM:yyyy");
@@ -84,7 +91,7 @@ public class ControllerMainLayout implements Initializable{
 
         grahpDrawingButton.setVisible(true);
         MainLabel.setText("Stan Magazynu");
-        ViewDB("warehouses");
+        TableViewFillMethod();
     }
     public void hangleAddButton(){
         MainLabel.setText("Dodawanie elementów");
@@ -101,23 +108,41 @@ public class ControllerMainLayout implements Initializable{
         grahpDrawingButton.setVisible(false);
         MainLabel.setText("Edycja elementów");
         AlertBox.popupEdit();
+
     }
     public void hangleShowDB2Button(){
-        CDatabaseComm db = new CDatabaseComm("test.db");
         grahpDrawingButton.setVisible(true);
         MainLabel.setText("Finanse");
-        ViewDB("balance");
+        DrawLineChart();
     }
     public void DrawGraph(){
-        grahpDrawingButton.setVisible(false);
-        //bar chart
-        start();
-        //line chart
-        draw();
-        //funckja do rysowania grafu, specjalnie dla Ciebie
+        CBarChart chart = new CBarChart();
+        chart.DrawBarChart();
+
     }
+    public  void TableViewFillMethod(){
+        ObservableList<CDataClass> data  = FXCollections.observableArrayList();
 
+        colID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        colCapacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
 
+        String sql = "select * from warehouses";
+        try(Connection conn = Connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)){
+
+            while (rs.next()){
+                data.add(new CDataClass(rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getDouble("capacity")));
+            }
+
+        }catch (SQLException e){e.getMessage();}
+        Table.setItems(data);
+    }
 }
 
 

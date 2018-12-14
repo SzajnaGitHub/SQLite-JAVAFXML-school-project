@@ -6,8 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.List;
-
 public class Main extends Application {
 
     @Override
@@ -19,12 +17,14 @@ public class Main extends Application {
         primaryStage.setResizable(false);
 
     }
+
+
+
     public static void main(String[] args) {
         CDatabaseComm db = new CDatabaseComm("test.db");
         Session session = new Session();
         Session.CurrentSession = session;
         launch(args);
-
     }
 
 }

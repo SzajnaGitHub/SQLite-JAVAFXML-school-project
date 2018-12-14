@@ -14,7 +14,7 @@ public class CLineChart {
     private static String[] X = getXsFromDB("balance","name").toArray(new String[getXsFromDB("balance","name").size()]);
     private static Double[] Y = getYsFromDB("balance","income").toArray(new Double[getYsFromDB("balance","income").size()]);
 
-    public static void draw(){
+    public static void DrawLineChart(){
         Stage stage = new Stage();
         stage.setTitle("Balance");
         final CategoryAxis xAxis = new CategoryAxis();
@@ -25,14 +25,13 @@ public class CLineChart {
 
         lineChart.setTitle("Balance");
         XYChart.Series series = new XYChart.Series();
-        //series.setName("test");
 
         for (int i =0;i<X.length;i++){
             series.getData().add(new XYChart.Data(X[i],Y[i]));
         }
         Scene scene  = new Scene(lineChart,800,600);
         lineChart.getData().add(series);
-
+        series.setName("Balance");
         stage.setScene(scene);
         stage.show();
     }

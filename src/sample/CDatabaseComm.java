@@ -1,12 +1,14 @@
 package sample;
 
 import javafx.stage.Stage;
+import org.sqlite.jdbc4.JDBC4Connection;
 import sun.management.jmxremote.ConnectorBootstrap;
 
 import javax.swing.plaf.nimbus.State;
 import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -20,18 +22,19 @@ public class CDatabaseComm {
         CreateNewDB();
         CreateNewTable();
     }
+    public CDatabaseComm(){CreateNewDB();}
 
     private static void CreateNewDB() {
         try (Connection conn = DriverManager.getConnection(dbpath)) {
             if (conn != null) {
-                System.out.print("DB created successfully" + "\n");
+                //System.out.print("DB created successfully" + "\n");
             }
         } catch (SQLException e) {
             System.out.print(e.getMessage());
         }
     }
 
-    private static Connection Connect() {
+    protected static Connection Connect() {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(dbpath);
@@ -149,13 +152,56 @@ public class CDatabaseComm {
 
         try (Connection conn = Connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            if(tabname.equals("warehousees")){
             pstmt.setString(1, name);
             pstmt.setDouble(2, income);
-            pstmt.setInt(3, id);
+            pstmt.setInt(3, id);}
+            else{
+
+            }
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.print(e.getMessage());
         }
+    }
+
+    public static List<String> getFromDB(String tabname, int id){
+        String sql = "SELECT * FROM " + tabname + " WHERE ROWID=" + id;
+        List x = new ArrayList<>();
+        try(Connection conn = Connect();
+        Statement stmt =  conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql)){
+            if(tabname.equals("warehouses")){
+                x.add(rs.getString("id"));
+                x.add(rs.getString("name"));
+                x.add(rs.getString("price"));
+                x.add(rs.getString("capacity"));}
+        }
+        catch (SQLException e){
+            e.getMessage();
+        }
+        return x;
+    }
+    public static ArrayList<ArrayList<String>> getListFromDB(String tabname){
+        ArrayList<ArrayList<String>> x = new ArrayList<ArrayList<String>>();
+        ArrayList<String> temp = new ArrayList<>();
+        String sql = "SElECT * FROM " + tabname;
+        try (Connection conn = Connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            if (tabname == "warehouses")
+                while (rs.next()) {
+                    temp.add(rs.getString("id"));
+                    temp.add(rs.getString("name"));
+                    temp.add(rs.getString("price"));
+                    temp.add(rs.getString("capacity"));
+                    x.add(temp);
+                }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return x;
     }
 
     public static void Delete(int id) {
@@ -183,5 +229,20 @@ public class CDatabaseComm {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+    public static int Counter(){
+        String sql = "SELECT * FROM warehouses";
+        int i=0;
+        try (Connection conn = Connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+                while (rs.next()) {
+                    i++;
+                }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return i;
     }
 }
