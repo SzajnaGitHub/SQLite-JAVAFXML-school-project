@@ -6,12 +6,12 @@ import java.util.Map;
 public class Session {
 
     public static Session CurrentSession = null;
-    private Map<String, String> data = new HashMap<String, String>();
+    private Map<String, CData> data = new HashMap<>();
 
     public Session() {
         try {
             if (CurrentSession == null) {
-                throw new Exception("Session already initalize");
+              //  throw new Exception("Session already initalize");
             }
             CurrentSession = this;
         } catch (Exception e) {
@@ -31,18 +31,18 @@ public class Session {
         return null;
     }
 
-    public void add(String key, String value) {
+    public void add(String key, CData cdata) {
         try {
-            data.put(key, value);
+            data.put(key, cdata);
         } catch (Exception e) {
             System.err.println(e);
         }
 
     }
 
-    public String get(String key) {
+    public String get(CData cdata){
         try {
-            return data.get(key);
+            return data.get(cdata.getName());
         } catch (Exception e) {
             System.err.println(e);
         }

@@ -103,13 +103,13 @@
             <AnchorPane prefHeight="459.0" prefWidth="393.0">
                <children>
                   <Button fx:id="grahpDrawingButton" layoutX="143.0" layoutY="434.0" mnemonicParsing="false" onAction="#DrawGraph" text="Rysowanie wykresu" AnchorPane.bottomAnchor="18.0" AnchorPane.rightAnchor="145.0" />
-                  <TableView layoutX="-1.0" layoutY="-5.0" prefHeight="424.0" prefWidth="407.0">
-                    <columns>
-                      <TableColumn prefWidth="53.0" text="ID" />
-                      <TableColumn prefWidth="137.0" text="Nazwa" />
-                      <TableColumn prefWidth="104.0" text="Cena" />
-                      <TableColumn prefWidth="112.0" text="Stan" />   
-                    </columns>
+                  <TableView fx:id="Table" layoutX="-1.0" layoutY="-5.0" prefHeight="424.0" prefWidth="407.0">
+                     <columns>
+                        <TableColumn fx:id="colID" prefWidth="53.0" text="ID" />
+                        <TableColumn fx:id="colName" prefWidth="137.0" text="Nazwa" />
+                        <TableColumn fx:id="colPrice" prefWidth="104.0" text="Cena" />
+                        <TableColumn fx:id="colCapacity" prefWidth="112.0" text="Stan" />
+                     </columns>
                   </TableView>
                </children>
             </AnchorPane>

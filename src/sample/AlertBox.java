@@ -12,14 +12,14 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import static sample.CDatabaseComm.Delete;
-import static sample.CDatabaseComm.InsertProduct;
+import static sample.CDatabaseComm.*;
 
 
 public class AlertBox{
 
      static void editBox(){
         Stage windows = new Stage();
+        int id=1;
 
         //Blocking interactions with other event
         windows.initModality(Modality.APPLICATION_MODAL);
@@ -51,10 +51,11 @@ public class AlertBox{
 
             if (ValidationClass.isInt(textField2,textField2.getText(),label3.getText())==true &&
                     ValidationClass.isString(textField1,textField1.getText(),label2.getText()) == true){
-                //System.out.println("it works beaches!");
-                InsertProduct(textField1.getText(),999,Double.parseDouble(textField2.getText()));
+
+                Update(id,textField1.getText(),Double.parseDouble(textField2.getText()),Double.parseDouble(textField3.getText()));
                 textField1.setText("");
                 textField2.setText("");
+                textField3.setText("");
             } else {
                 windows.close();
             }
@@ -143,7 +144,7 @@ public class AlertBox{
                         ValidationClass.isInt(textField3,textField3.getText(),label4.getText())==true
             ){
 
-                InsertProduct(textField1.getText(),999,Double.parseDouble(textField2.getText()));
+                InsertProduct(textField1.getText(),Double.parseDouble(textField2.getText()),Double.parseDouble(textField3.getText()));
                 textField1.setText("");
                 textField2.setText("");
             } else {
@@ -196,12 +197,12 @@ public class AlertBox{
 
         Button DelButton = new Button();
         DelButton.setOnAction(e-> {
-            if(ValidationClass.isInt(textField,textField.getText(),label.getText())==false){
+            //if(ValidationClass.isInt(textField,textField.getText(),label.getText())==false){
                 Delete(Integer.parseInt(textField.getText()));
-            }
-            else{
+            //}
+            //else{
                 windows.close();
-            }
+            //}
         });
         DelButton.setText("Delete");
 
@@ -240,7 +241,7 @@ public class AlertBox{
          EditButton.setOnAction(e->{
 
              if(ValidationClass.isInt(textField,textField.getText(),label.getText())==false){
-                 //db.Update();
+                 //Update(textField.getText());
 
              }
              else {
