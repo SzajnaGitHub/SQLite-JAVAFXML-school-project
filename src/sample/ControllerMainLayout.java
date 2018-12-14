@@ -88,7 +88,6 @@ public class ControllerMainLayout implements Initializable{
         IdDate.setText(dateString);
     }
     public void hanglewarehouseButton(){
-
         grahpDrawingButton.setVisible(true);
         MainLabel.setText("Stan Magazynu");
         TableViewFillMethod();
@@ -97,17 +96,20 @@ public class ControllerMainLayout implements Initializable{
         MainLabel.setText("Dodawanie elementów");
         grahpDrawingButton.setVisible(false);
         AlertBox.popupAdd("Dodawanie","Nazwa", "Ilość","Add");
+        TableViewFillMethod();
 
     }
     public void hangleDeleteButton(){
         grahpDrawingButton.setVisible(false);
         MainLabel.setText("Usuwanie elementów");
         AlertBox.popupDel();
+        TableViewFillMethod();
     }
     public void hangleEditButton(){
         grahpDrawingButton.setVisible(false);
         MainLabel.setText("Edycja elementów");
         AlertBox.popupEdit();
+        TableViewFillMethod();
 
     }
     public void hangleShowDB2Button(){
@@ -118,9 +120,8 @@ public class ControllerMainLayout implements Initializable{
     public void DrawGraph(){
         CBarChart chart = new CBarChart();
         chart.DrawBarChart();
-
     }
-    public  void TableViewFillMethod(){
+    private void TableViewFillMethod(){
         ObservableList<CDataClass> data  = FXCollections.observableArrayList();
 
         colID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -132,14 +133,12 @@ public class ControllerMainLayout implements Initializable{
         try(Connection conn = Connect();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql)){
-
             while (rs.next()){
                 data.add(new CDataClass(rs.getInt("id"),
                         rs.getString("name"),
                         rs.getDouble("price"),
                         rs.getDouble("capacity")));
             }
-
         }catch (SQLException e){e.getMessage();}
         Table.setItems(data);
     }
