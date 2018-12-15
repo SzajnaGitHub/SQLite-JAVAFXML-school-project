@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -47,7 +46,7 @@ public class ControllerMainLayout implements Initializable{
         setIdTime();
         setIdDate();
         TableViewFillMethod();
-        if(Session.getCurrentSession().get("userType").equals("User")){
+        if(Session.getCurrentSession().get("userType")==2){
             showDB2Button.setDisable(true);//wyłączanie przycisków
         }
 
@@ -55,7 +54,14 @@ public class ControllerMainLayout implements Initializable{
 
 
     private void setLogedAsMethod(){
-            logedAs.setText(Session.getCurrentSession().get("userType"));
+        if(Session.getCurrentSession().get("userType")==1){
+            logedAs.setText("Admin");
+        }
+        else{
+            logedAs.setText("User");
+
+        }
+
     }
     private void setIdTime() {
          new Thread(new Runnable() {

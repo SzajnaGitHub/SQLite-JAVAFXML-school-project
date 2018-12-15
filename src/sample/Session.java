@@ -6,7 +6,7 @@ import java.util.Map;
 public class Session {
 
     public static Session CurrentSession = null;
-    private Map<String, CData> data = new HashMap<>();
+    private Map<String, Integer> data = new HashMap<>();
 
     public Session() {
         try {
@@ -31,22 +31,22 @@ public class Session {
         return null;
     }
 
-    public void add(String key, CData cdata) {
+    public void add(String key, Integer value) {
         try {
-            data.put(key, cdata);
+            data.put(key, value);
         } catch (Exception e) {
             System.err.println(e);
         }
 
     }
 
-    public String get(CData cdata){
+    public int get(String key) {
         try {
-            return data.get(cdata.getName());
+            return data.get(key);
         } catch (Exception e) {
             System.err.println(e);
         }
-        return "";
+        return 0;
     }
 
 

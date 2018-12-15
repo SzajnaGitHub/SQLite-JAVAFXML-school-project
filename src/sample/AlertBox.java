@@ -19,7 +19,7 @@ public class AlertBox{
 
      static void editBox(){
         Stage windows = new Stage();
-        int id=1;
+         int id = Session.getCurrentSession().get("editId");
 
         //Blocking interactions with other event
         windows.initModality(Modality.APPLICATION_MODAL);
@@ -51,11 +51,12 @@ public class AlertBox{
 
             if (ValidationClass.isInt(textField2,textField2.getText(),label3.getText())==true &&
                     ValidationClass.isString(textField1,textField1.getText(),label2.getText()) == true){
-
+                System.out.println(id);
                 Update(id,textField1.getText(),Double.parseDouble(textField2.getText()),Double.parseDouble(textField3.getText()));
                 textField1.setText("");
                 textField2.setText("");
                 textField3.setText("");
+
             } else {
                 windows.close();
             }
@@ -197,12 +198,9 @@ public class AlertBox{
 
         Button DelButton = new Button();
         DelButton.setOnAction(e-> {
-            //if(ValidationClass.isInt(textField,textField.getText(),label.getText())==false){
                 Delete(Integer.parseInt(textField.getText()));
-            //}
-            //else{
                 windows.close();
-            //}
+
         });
         DelButton.setText("Delete");
 
@@ -216,6 +214,8 @@ public class AlertBox{
     }
 
      static void popupEdit(){
+         Session session = Session.getCurrentSession();
+
          Stage windows = new Stage();
 
          //Blocking interactions with other event
@@ -241,10 +241,11 @@ public class AlertBox{
          EditButton.setOnAction(e->{
 
              if(ValidationClass.isInt(textField,textField.getText(),label.getText())==false){
-                 //Update(textField.getText());
-
              }
              else {
+                 session.add("editId",Integer.parseInt(textField.getText()));
+                 int lol = Integer.parseInt(textField.getText());
+                 System.out.println(lol);
                  editBox();
              }
 

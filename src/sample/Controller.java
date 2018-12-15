@@ -25,12 +25,12 @@ public class Controller {
 
     public void handleLoginButton(ActionEvent event) throws IOException, InterruptedException {
         if (passwordField.getText().equals("admin")) {
-            session.add("userType", "Admin");
+            session.add("userType", 1);
             runProgressBar(event);
 
 
         } else if (passwordField.getText().equals("user")) {
-            session.add("userType", "User");
+            session.add("userType", 2);
             runProgressBar(event);
 
         } else {
