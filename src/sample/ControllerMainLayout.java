@@ -52,7 +52,9 @@ public class ControllerMainLayout implements Initializable{
 
     }
 
-
+    /**
+     * This method set "logedAs" Label text as "Admin" when value of Session "userType" is 1
+     */
     private void setLogedAsMethod(){
         if(Session.getCurrentSession().get("userType")==1){
             logedAs.setText("Admin");
@@ -63,10 +65,14 @@ public class ControllerMainLayout implements Initializable{
         }
 
     }
+
+    /**
+     * This method set "IdTime" Label as actual time in Thread
+     */
     private void setIdTime() {
          new Thread(new Runnable() {
             @Override public void run() {
-                for (int i = 1; i >0; i++) {
+                for (int i = 1; i <5; i++) {
                     try {
                         LocalTime today = LocalTime.now();
 
@@ -77,24 +83,32 @@ public class ControllerMainLayout implements Initializable{
                                 }
                                 if (today.getMinute() <= 9) {
                                     IdTime.setText(today.getHour() + ":0" + today.getMinute());
-                                } else {
+                                }
+                                if(today.getMinute() <= 9 &&today.getHour() <= 9 ){
+                                    IdTime.setText("0" + today.getHour() + ":0" + today.getMinute());
+                                }
+                                else {
                                     IdTime.setText(today.getHour() + ":" + today.getMinute());
                                 }
                             }
                         });
-                        Thread.sleep(1000);
+                        Thread.sleep(60000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                 }}}
             }).start();
 
     }
+    /**
+     * This method set "IdDate" Label as actual date
+     */
     private void setIdDate(){
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd:MM:yyyy");
         String dateString = dateFormat.format(currentDate);
         IdDate.setText(dateString);
     }
+
     public void hanglewarehouseButton(){
         grahpDrawingButton.setVisible(true);
         MainLabel.setText("Stan Magazynu");
@@ -125,10 +139,18 @@ public class ControllerMainLayout implements Initializable{
         MainLabel.setText("Finanse");
         DrawLineChart();
     }
+
+    /**
+     * this method draws Graph
+     */
     public void DrawGraph(){
         CBarChart chart = new CBarChart();
         chart.DrawBarChart();
     }
+
+    /**
+     * this method fills JavaFX TableView
+     */
     private void TableViewFillMethod(){
         ObservableList<CDataClass> data  = FXCollections.observableArrayList();
 

@@ -41,6 +41,11 @@ public class Controller {
 
     }
 
+    /**
+     * This method change scenes
+     * @param event
+     * @throws IOException
+     */
     private void sceneChange(ActionEvent event) throws IOException {
 
         Parent MainLayoutParent = FXMLLoader.load(getClass().getResource("MainLayout.fxml"));
@@ -54,6 +59,11 @@ public class Controller {
         window.show();
     }
 
+    /**
+     * This method create progressBar and handle it
+     * @param event
+     * @throws InterruptedException
+     */
     private void runProgressBar(ActionEvent event) throws InterruptedException{
 
         new Thread(new Runnable() {

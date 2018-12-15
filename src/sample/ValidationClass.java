@@ -3,8 +3,18 @@ package sample;
 
 import javafx.scene.control.TextField;
 
+    /**
+     * This class validates Textfields in AlertBox Class.
+     */
 public class ValidationClass {
 
+    /**
+     * this method tests if value from textField is Integer
+     * @param txt = textField
+     * @param message = textField.getText() function
+     * @param lbl = Label
+     * @return true if value in textField is Integer or false when value in textField is not Integer
+     */
     static boolean isInt(TextField txt, String message,String lbl){
 
         try{
@@ -17,6 +27,14 @@ public class ValidationClass {
             return false;
         }
     }
+
+    /**
+     * this method tests if value from textField is String
+     * @param txt = textField
+     * @param message = textField.getText() function
+     * @param lbl = Label
+     * @return true if value in textField is String or false when value in textField is not String
+     */
     static boolean isString(TextField txt,String message,String lbl){
 
         message = message.trim();

@@ -3,6 +3,9 @@ package sample;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class is used to transport variables from one class to another
+ */
 public class Session {
 
     public static Session CurrentSession = null;
@@ -31,7 +34,12 @@ public class Session {
         return null;
     }
 
-    public void add(String key, Integer value) {
+    /**
+     * This method add data to HashMap
+     * @param key
+     * @param value
+     */
+     public void add(String key, Integer value) {
         try {
             data.put(key, value);
         } catch (Exception e) {
@@ -40,6 +48,11 @@ public class Session {
 
     }
 
+    /**
+     * This method get value from Hashmap by passing key
+     * @param key
+     * @return key to HashMap current session
+     */
     public int get(String key) {
         try {
             return data.get(key);

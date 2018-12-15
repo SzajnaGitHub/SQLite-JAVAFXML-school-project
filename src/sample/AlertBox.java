@@ -17,7 +17,10 @@ import static sample.CDatabaseComm.*;
 
 public class AlertBox{
 
-     static void editBox(){
+    /**
+     * This method create edit window which is used to edit DataBase values.
+      */
+    static void editBox(){
         Stage windows = new Stage();
          int id = Session.getCurrentSession().get("editId");
 
@@ -87,6 +90,9 @@ public class AlertBox{
         windows.showAndWait();
 
     }
+    /**
+     * This method create alertBox window which is used to give short information (for example errors)
+     */
     static void alertBox(String title, String message){
         Stage windows = new Stage();
 
@@ -109,6 +115,9 @@ public class AlertBox{
         windows.setScene(alertBoxScene);
         windows.showAndWait();
     }
+    /**
+     * This method create Add window which is used to add new values to DataBase
+     */
     static void popupAdd(String title,String labelname1,String labelname2,String buttonName){
         Stage windows = new Stage();
 
@@ -148,6 +157,7 @@ public class AlertBox{
                 InsertProduct(textField1.getText(),Double.parseDouble(textField2.getText()),Double.parseDouble(textField3.getText()));
                 textField1.setText("");
                 textField2.setText("");
+                textField3.setText("");
             } else {
                 windows.close();
             }
@@ -177,7 +187,9 @@ public class AlertBox{
         windows.setScene(popupScene);
         windows.showAndWait();
     }
-
+    /**
+     * This method create Delete window which is used to delete values from DataBase
+     */
     static void popupDel(){
         Stage windows = new Stage();
         //Blocking interactions with other event
