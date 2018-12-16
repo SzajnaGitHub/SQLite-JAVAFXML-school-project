@@ -10,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -41,13 +43,14 @@ public class ControllerMainLayout implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         grahpDrawingButton.setVisible(false);
         setLogedAsMethod();
         setIdTime();
         setIdDate();
         TableViewFillMethod();
         if(Session.getCurrentSession().get("userType")==2){
-            showDB2Button.setDisable(true);//wyłączanie przycisków
+            showDB2Button.setDisable(true);//Disable "show DB2" button for User
         }
 
     }
@@ -70,35 +73,9 @@ public class ControllerMainLayout implements Initializable{
      * This method set "IdTime" Label as actual time in Thread
      */
     private void setIdTime() {
-         new Thread(new Runnable() {
-            @Override public void run() {
-                for (int i = 1; i <5; i++) {
-                    try {
-                        LocalTime today = LocalTime.now();
-
-                        Platform.runLater(new Runnable() {
-                            @Override public void run() {
-                                if (today.getHour() <= 9) {
-                                    IdTime.setText("0" + today.getHour() + ":" + today.getMinute());
-                                }
-                                if (today.getMinute() <= 9) {
-                                    IdTime.setText(today.getHour() + ":0" + today.getMinute());
-                                }
-                                if(today.getMinute() <= 9 &&today.getHour() <= 9 ){
-                                    IdTime.setText("0" + today.getHour() + ":0" + today.getMinute());
-                                }
-                                else {
-                                    IdTime.setText(today.getHour() + ":" + today.getMinute());
-                                }
-                            }
-                        });
-                        Thread.sleep(60000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                }}}
-            }).start();
-
-    }
+         Runnable r = new CClockThread(IdTime);
+         new Thread(r).start();
+         }
     /**
      * This method set "IdDate" Label as actual date
      */
