@@ -22,7 +22,9 @@ import java.util.ResourceBundle;
 import static sample.CDatabaseComm.Connect;
 import static sample.CLineChart.DrawLineChart;
 
-
+/**
+ * This class is controller for MainLayout.fxml file
+ */
 public class ControllerMainLayout implements Initializable{
 
 
@@ -74,8 +76,6 @@ public class ControllerMainLayout implements Initializable{
     private void setIdTime() {
         Runnable r = new CClockThread(IdTime);
         new Thread(r).start();
-       // ((CClockThread) r).shutdown();
-
     }
     /**
      * This method set "IdDate" Label as actual date

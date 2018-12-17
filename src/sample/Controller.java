@@ -17,6 +17,9 @@ import javafx.stage.WindowEvent;
 import java.io.IOException;
 
 
+/**
+ * This class is controller for sample.fxml file
+ */
 public class Controller {
 
     @FXML public Button loginButton;
@@ -46,7 +49,7 @@ public class Controller {
 
     /**
      * This method change scenes
-     * @param event
+     * @param event- Action Event used to change between scenes
      * @throws IOException
      */
     private void sceneChange(ActionEvent event) throws IOException {
@@ -57,6 +60,8 @@ public class Controller {
         //This line gets the Stage information
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setResizable(false);
+
+        //Proper window closing
         window.setOnHiding(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
@@ -75,7 +80,7 @@ public class Controller {
 
     /**
      * This method create progressBar and handle it
-     * @param event
+     * @param event Action Event used to change between scenes
      * @throws InterruptedException
      */
     private void runProgressBar(ActionEvent event) throws InterruptedException{

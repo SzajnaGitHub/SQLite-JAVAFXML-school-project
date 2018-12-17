@@ -5,6 +5,10 @@ import javafx.scene.control.Label;
 
 import java.time.LocalTime;
 
+/**
+ * Object of this class is Thread.
+ * This class is used to create clock
+ */
 public class CClockThread implements Runnable {
 
     Label IdTime;
@@ -13,13 +17,10 @@ public class CClockThread implements Runnable {
         this.IdTime = IdTime;
     }
 
-    private volatile boolean shutdown;
-
     @Override
     public void run() {
 
 
-        while (!shutdown) {
             while (1 == 1) {
                 try {
                     LocalTime today = LocalTime.now();
@@ -49,10 +50,7 @@ public class CClockThread implements Runnable {
         }
     }
 
-    public void shutdown() {
-        shutdown = true;
-    }
-}
+
 
 
 
