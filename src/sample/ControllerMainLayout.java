@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -18,7 +16,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -40,6 +37,7 @@ public class ControllerMainLayout implements Initializable{
     @FXML private Button showDB2Button;
     @FXML private Button grahpDrawingButton;
     @FXML private TableView<CDataClass> Table;
+    private boolean close = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -53,12 +51,13 @@ public class ControllerMainLayout implements Initializable{
             showDB2Button.setDisable(true);//Disable "show DB2" button for User
         }
 
+
     }
 
     /**
      * This method set "logedAs" Label text as "Admin" when value of Session "userType" is 1
      */
-    private void setLogedAsMethod(){
+    private void setLogedAsMethod() {
         if(Session.getCurrentSession().get("userType")==1){
             logedAs.setText("Admin");
         }
@@ -73,9 +72,11 @@ public class ControllerMainLayout implements Initializable{
      * This method set "IdTime" Label as actual time in Thread
      */
     private void setIdTime() {
-         Runnable r = new CClockThread(IdTime);
-         new Thread(r).start();
-         }
+        Runnable r = new CClockThread(IdTime);
+        new Thread(r).start();
+       // ((CClockThread) r).shutdown();
+
+    }
     /**
      * This method set "IdDate" Label as actual date
      */

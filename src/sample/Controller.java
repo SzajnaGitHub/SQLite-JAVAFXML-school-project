@@ -2,6 +2,7 @@ package sample;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -11,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -55,6 +57,17 @@ public class Controller {
         //This line gets the Stage information
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setResizable(false);
+        window.setOnHiding(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.exit(0);
+                    }
+                });
+            }
+        });
 
         window.setScene(MainLayoutScene);
         window.show();
