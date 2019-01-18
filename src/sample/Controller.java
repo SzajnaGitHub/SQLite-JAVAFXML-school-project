@@ -28,8 +28,6 @@ public class Controller {
     Session session = Session.getCurrentSession();
 
 
-
-
     public void handleLoginButton(ActionEvent event) throws IOException, InterruptedException {
         if (passwordField.getText().equals("admin")) {
             session.add("userType", 1);

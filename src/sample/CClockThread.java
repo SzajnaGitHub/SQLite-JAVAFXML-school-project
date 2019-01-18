@@ -20,7 +20,6 @@ public class CClockThread implements Runnable {
     @Override
     public void run() {
 
-
             while (1 == 1) {
                 try {
                     LocalTime today = LocalTime.now();

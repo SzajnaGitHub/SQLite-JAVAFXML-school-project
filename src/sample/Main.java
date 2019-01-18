@@ -18,8 +18,6 @@ public class Main extends Application {
 
     }
 
-
-
     public static void main(String[] args) {
         CDatabaseComm db = new CDatabaseComm("test.db");
         Session session = new Session();

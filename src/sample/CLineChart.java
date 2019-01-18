@@ -11,6 +11,7 @@ import static sample.CDatabaseComm.getXsFromDB;
 import static sample.CDatabaseComm.getYsFromDB;
 
 public class CLineChart {
+
     private static String[] X = getXsFromDB("balance","name").toArray(new String[getXsFromDB("balance","name").size()]);
     private static Double[] Y = getYsFromDB("balance","income").toArray(new Double[getYsFromDB("balance","income").size()]);
 

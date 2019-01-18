@@ -27,7 +27,6 @@ import static sample.CLineChart.DrawLineChart;
  */
 public class ControllerMainLayout implements Initializable{
 
-
     public TableColumn<?,?> colID;
     public TableColumn<?,?> colName;
     public TableColumn<?,?> colPrice;

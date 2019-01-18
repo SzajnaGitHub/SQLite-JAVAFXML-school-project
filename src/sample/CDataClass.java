@@ -1,6 +1,7 @@
 package sample;
 
 public class CDataClass{
+
     private int id;
     private String name;
     private double price;

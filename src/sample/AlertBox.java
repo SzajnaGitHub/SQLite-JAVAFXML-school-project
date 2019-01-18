@@ -24,7 +24,7 @@ public class AlertBox{
         Stage windows = new Stage();
          int id = Session.getCurrentSession().get("editId");
 
-        //Blocking interactions with other event
+
         windows.initModality(Modality.APPLICATION_MODAL);
         windows.setResizable(false);
         windows.setTitle("Shansky.app");//setting windows title

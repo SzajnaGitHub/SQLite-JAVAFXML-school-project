@@ -17,7 +17,6 @@ public class CBarChart {
     private String[] X = getXsFromDB("warehouses","name").toArray(new String[getXsFromDB("warehouses","name").size()]);
     private Double[] Y = getYsFromDB("warehouses","capacity").toArray(new Double[getYsFromDB("warehouses","capacity").size()]);
 
-
     public CBarChart(){
     }
 

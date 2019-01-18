@@ -2,7 +2,6 @@ package sample;
 
 import java.util.HashMap;
 import java.util.Map;
-
 /**
  * This class is used to transport variables between classes.
  */
